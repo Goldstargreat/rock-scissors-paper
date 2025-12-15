@@ -36,6 +36,14 @@ function App() {
         setResult(judgement(choice[userChoice], computerChoice))
     };
 
+    const randomChoice = () => {
+        let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 Array로 만들어주는 함수
+        console.log("itemArray: ", itemArray);
+        let randomItem = Math.floor(Math.random() * itemArray.length);
+        let final = itemArray[randomItem];
+        return choice[final];
+    }
+
     const judgement = (user, computer) => {
         console.log("user", user, "computer", computer);
 
@@ -53,13 +61,6 @@ function App() {
           else if(user.name == "Paper") return computer.name == "Rock" ? "win": "lose"
     };
 
-    const randomChoice = () => {
-        let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 Array로 만들어주는 함수
-        console.log("itemArray: ", itemArray);
-        let randomItem = Math.floor(Math.random() * itemArray.length);
-        let final = itemArray[randomItem];
-        return choice[final];
-    }
   return (
       <div>
           <div className="main">
