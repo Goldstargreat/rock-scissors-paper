@@ -1,7 +1,4 @@
 import React from "react";
-import Scissor from "../imgs/Scissor.png";
-import Rocks from "../imgs/Rocks.jpg";
-import Paper from "../imgs/Paper.png";
 
 const Box = (props) => {
     return (
@@ -9,7 +6,7 @@ const Box = (props) => {
             <h1>{props.title}</h1>
             <img className="item-img"
                  src={props.item && props.item.img}/>
-            <h2>WIN</h2>
+            <h2>{props.result}</h2>
         </div>
 
     )
