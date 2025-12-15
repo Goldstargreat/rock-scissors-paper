@@ -8,7 +8,7 @@ const Box = (props) => {
         <div className="box">
             <h1>{props.title}</h1>
             <img className="item-img"
-                 src={Scissor} alt="scissor"/>
+                 src={props.item && props.item.img}/>
             <h2>WIN</h2>
         </div>
 
