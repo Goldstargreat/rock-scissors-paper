@@ -27,15 +27,24 @@ const choice = {
 }
 function App() {
     const [userSelect, setUserSelect] = useState(null)
-
+    const [computerSelect, setComputerSelect ] = useState(null)
     const play = (userChoice) => {
         setUserSelect(choice[userChoice])
+        let computerChoice = randomChoice();
+        setComputerSelect(computerChoice);
     };
+    const randomChoice = () => {
+        let itemArray = Object.keys(choice); // 객체의 키값만 뽑아서 Array로 만들어주는 함수
+        console.log("itemArray", itemArray);
+        let randomItem = Math.floor(Math.random() * itemArray.length);
+        let final = itemArray[randomItem];
+        return choice[final];
+    }
   return (
       <div>
           <div className="main">
               <Box title="Player" item={userSelect}/>
-              {/*<Box title="Computer"/>*/}
+              <Box title="Computer" item={computerSelect}/>
           </div>
           <div className="main">
               <button onClick={()=>play("scissors")}>가위</button>
