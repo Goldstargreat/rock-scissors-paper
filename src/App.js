@@ -55,10 +55,10 @@ function App() {
         // user == paper, computer == rock이면 user win
         // user == paper, computer == scissors이면 user lose
         if(user.name == computer.name){
-            return "tie"
-        } else if(user.name == "Rock") return computer.name == "Scissors" ? "win": "lose"
-          else if(user.name == "Scissors") return computer.name == "Paper" ? "win": "lose"
-          else if(user.name == "Paper") return computer.name == "Rock" ? "win": "lose"
+            return "tie";
+        } else if(user.name == "Rock") return computer.name == "Scissors" ? "win": "lose";
+          else if(user.name == "Scissors") return computer.name == "Paper" ? "win": "lose";
+          else if(user.name == "Paper") return computer.name == "Rock" ? "win": "lose";
     };
 
   return (
