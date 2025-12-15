@@ -28,6 +28,7 @@
 .main{
     display: flex;
     justify-content: center;
+    gap: 30px;   /* ← 간극 추가 */
 }
 .button-container {
     margin-top: 20px;
