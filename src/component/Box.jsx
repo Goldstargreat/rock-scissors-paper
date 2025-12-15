@@ -14,7 +14,7 @@ const Box = (props) => {
         // 위의 경우가 아니라면 props 로 전달된 결과를 그대로 쓴다.
         result = props.result;
     } if (props.title === "Computer") {
-        console.log("computer", result);
+        console.log("computer", result); //디버깅용 console.log
     }
 
     return (
