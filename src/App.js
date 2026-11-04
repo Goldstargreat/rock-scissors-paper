@@ -27,7 +27,7 @@ const choice = {
 }
 function App() {
     const [userSelect, setUserSelect] = useState(null)
-    const [computerSelect, setComputerSelect ] = useState("")
+    const [computerSelect, setComputerSelect] = useState("")
     const [result, setResult] = useState("")
     const play = (userChoice) => {
         setUserSelect(choice[userChoice])
@@ -54,18 +54,18 @@ function App() {
         // user == scissors, computer == rock이면 user lose
         // user == paper, computer == rock이면 user win
         // user == paper, computer == scissors이면 user lose
-        if(user.name == computer.name){
+        if(user.name === computer.name){
             return "tie";
-        } else if(user.name == "Rock") return computer.name == "Scissors" ? "win": "lose";
-          else if(user.name == "Scissors") return computer.name == "Paper" ? "win": "lose";
-          else if(user.name == "Paper") return computer.name == "Rock" ? "win": "lose";
+        } else if(user.name === "Rock") return computer.name === "Scissors" ? "win": "lose";
+          else if(user.name === "Scissors") return computer.name === "Paper" ? "win": "lose";
+          else if(user.name === "Paper") return computer.name === "Rock" ? "win": "lose";
     };
 
   return (
       <div>
           <div className="main">
-              <Box title="Player" item={userSelect} result ={result} />
-              <Box title="Computer" item={computerSelect} result ={result}/>
+              <Box title="Player" item={userSelect} result={result} />
+              <Box title="Computer" item={computerSelect} result={result}/>
           </div>
           <div className="main">
               <button onClick={()=>play("scissors")}>가위</button>
