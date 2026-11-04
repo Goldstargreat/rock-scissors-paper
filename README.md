@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# ✂️ 가위바위보 게임 (React)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React로 만든 간단한 가위바위보 게임입니다.
+버튼으로 가위·바위·보 중 하나를 고르면 컴퓨터가 무작위로 하나를 고르고, 승패에 따라 카드 테두리 색이 바뀝니다.
 
-## Available Scripts
+## 주요 기능
 
-In the project directory, you can run:
+- **가위 / 바위 / 보** 버튼으로 플레이어의 선택을 정함
+- 컴퓨터는 `Math.random()`으로 무작위 선택
+- 플레이어와 컴퓨터 카드에 각각 선택한 아이템의 이름과 이미지를 표시
+- 승패 결과에 따라 카드 테두리 색 변경
 
-### `npm start`
+| 결과 | 테두리 / 글자 색 |
+| :--: | :--: |
+| win  | 🟩 초록 |
+| lose | 🟥 빨강 |
+| tie  | ⬛ 검정 |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 컴퓨터 카드는 플레이어 결과를 반대로 보여줌 (플레이어 `win` → 컴퓨터 `lose`)
+- 게임 시작 전에는 물음표 이미지(`initialImage`)를 표시
+- 화면 폭 768px 이하에서는 카드가 세로로 쌓이는 반응형 레이아웃
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 기술 스택
 
-### `npm test`
+- React (Create React App)
+- JavaScript (ES6+)
+- CSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 프로젝트 구조
 
-### `npm run build`
+```
+src/
+├── App.js              # 게임 로직 (선택, 랜덤 선택, 승패 판정)
+├── App.css             # 카드·버튼 레이아웃, 승패 색상, 반응형 스타일
+├── App.test.js         # 테스트 파일 (CRA 기본)
+├── index.js            # 앱 진입점
+├── index.css           # 전역 스타일
+├── reportWebVitals.js  # 성능 측정 (CRA 기본)
+├── setupTests.js       # 테스트 설정 (CRA 기본)
+├── logo.svg
+├── component/
+│   └── Box.jsx         # 플레이어·컴퓨터 카드 컴포넌트
+└── imgs/
+    ├── initialImage.jpg  # 시작 화면 물음표 이미지
+    ├── Rocks.jpg         # 바위
+    ├── Scissor.png       # 가위
+    └── Paper.png         # 보
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 동작 방식
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. 선택지 정의 (`App.js`)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+const choice = {
+    rock:     { name: "Rock",     img: Rock },
+    scissors: { name: "Scissors", img: Scissors },
+    paper:    { name: "Paper",    img: Paper }
+}
+```
 
-### `npm run eject`
+### 2. 게임 진행 — `play(userChoice)`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. 플레이어가 고른 아이템을 `userSelect`에 저장
+2. `randomChoice()`로 컴퓨터 아이템을 뽑아 `computerSelect`에 저장
+3. `judgement()`로 승패를 판정해 `result`에 저장
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. 컴퓨터 선택 — `randomChoice()`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`Object.keys(choice)`로 `["rock", "scissors", "paper"]` 배열을 만들고, 그중 하나를 무작위로 골라 돌려줍니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. 승패 판정 — `judgement(user, computer)`
 
-## Learn More
+| 플레이어 | 컴퓨터 | 결과 |
+| :--: | :--: | :--: |
+| 같음 | 같음 | tie |
+| Rock | Scissors | win |
+| Rock | Paper | lose |
+| Scissors | Paper | win |
+| Scissors | Rock | lose |
+| Paper | Rock | win |
+| Paper | Scissors | lose |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 5. 카드 표시 — `Box.jsx`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `props`로 `title`, `item`, `result`를 받음
+- `title`이 `"Computer"`이고 결과가 `tie`나 빈 값이 아니면 결과를 반대로 바꿈
+- 결과 값(`win` / `lose` / `tie`)을 그대로 CSS 클래스로 붙여 테두리 색을 바꿈
 
-### Code Splitting
+```jsx
+<div className={`box ${result}`}>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 실행 방법
 
-### Analyzing the Bundle Size
+```bash
+# 패키지 설치
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 개발 서버 실행 (http://localhost:3000)
+npm start
+```
